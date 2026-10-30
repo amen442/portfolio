@@ -54,6 +54,7 @@ export interface Project {
   details: string[]
   tech: string[]
   link?: { label: string; href: string }
+  github?: string
   team?: string[]
   featured?: boolean
 }
@@ -143,6 +144,7 @@ export const projects: Project[] = [
       'Dashboard admin',
     ],
     tech: ['PHP', 'MySQL', 'CSS', 'JavaScript'],
+    github: 'https://github.com/amen442/esenet',
     featured: true,
   },
   {
@@ -171,8 +173,7 @@ export const projects: Project[] = [
       'Filtrage des annuaires, sites d’emploi et résultats qui ne sont pas des entreprises',
     ],
     tech: ['HTML', 'CSS', 'JavaScript', 'n8n', 'Tavily API'],
-    // TODO : renseigner l'URL du repo GitHub dans `href` pour activer le bouton.
-    link: { label: 'Voir le repo GitHub', href: '' },
+    github: 'https://github.com/amen442/talentmatch-tn',
   },
   {
     title: 'Custom Sticker E-commerce Marketplace',
@@ -181,6 +182,7 @@ export const projects: Project[] = [
     details: ['Gestion des produits', 'Panier et checkout', 'Suivi des commandes'],
     tech: ['HTML', 'CSS', 'JavaScript', 'PHP', 'MySQL'],
     link: { label: 'Voir le projet', href: 'https://lnkd.in/d8yPRkFa' },
+    github: 'https://github.com/amen442/sticker',
   },
   {
     title: 'Bowstring Agency Website & KPI BOW',
@@ -190,6 +192,7 @@ export const projects: Project[] = [
     details: ['Service KPI BOW : calcul de KPIs Instagram/Facebook', 'Suivi de trafic'],
     tech: ['HTML', 'CSS', 'JavaScript', 'PHP', 'SQL'],
     team: ['Mohamed Adel Amdouni', 'Kmar Mejri'],
+    github: 'https://github.com/amen442/browstring-agency',
   },
   {
     title: 'E-Commerce: The Comeback',
@@ -198,6 +201,7 @@ export const projects: Project[] = [
     details: ['Intégration Google Sheets', 'Workflow QR code'],
     tech: ['React', 'Node.js'],
     link: { label: 'Voir le projet', href: 'https://esenthecomeback.tn' },
+    github: 'https://github.com/amen442/esen-event',
   },
 ]
 

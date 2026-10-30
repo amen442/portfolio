@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { ArrowUpRight, Star, Users } from 'lucide-react'
+import { ArrowUpRight, Github, Star, Users } from 'lucide-react'
 import { Reveal } from '../components/Reveal'
 import { SectionHeading } from '../components/SectionHeading'
 import { TiltCard } from '../components/TiltCard'
@@ -82,28 +82,48 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               ))}
             </ul>
 
-            {project.link && (
-              <motion.a
-                href={project.link.href || undefined}
-                aria-disabled={!project.link.href}
-                title={project.link.href ? undefined : 'Lien à venir'}
-                target="_blank"
-                rel="noopener noreferrer"
-                variants={{
-                  rest: { opacity: 0.0, x: 20 },
-                  hover: { opacity: 1, x: 0 },
-                }}
-                transition={{ duration: 0.3 }}
-                // Toujours visible au clavier / sur tactile (pas de survol disponible)
-                className={`inline-flex items-center gap-1.5 rounded-full bg-accent px-4 py-2 text-sm font-medium text-white focus-visible:!opacity-100 [@media(hover:none)]:!opacity-100 ${
-                  project.link.href ? '' : 'cursor-not-allowed saturate-50'
-                }`}
-              >
-                {project.link.label}
-                <ArrowUpRight size={16} aria-hidden="true" />
-                <span className="sr-only"> — {project.title} (nouvel onglet)</span>
-              </motion.a>
-            )}
+            <div className="flex flex-wrap items-center gap-3">
+              {project.github && (
+                <motion.a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  variants={{
+                    rest: { opacity: 0.0, x: 20 },
+                    hover: { opacity: 1, x: 0 },
+                  }}
+                  transition={{ duration: 0.3 }}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-line px-4 py-2 text-sm font-medium text-fg transition-colors hover:border-accent-fg/50 focus-visible:!opacity-100 [@media(hover:none)]:!opacity-100"
+                >
+                  <Github size={16} aria-hidden="true" />
+                  GitHub
+                  <span className="sr-only"> — {project.title} (nouvel onglet)</span>
+                </motion.a>
+              )}
+
+              {project.link && (
+                <motion.a
+                  href={project.link.href || undefined}
+                  aria-disabled={!project.link.href}
+                  title={project.link.href ? undefined : 'Lien à venir'}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  variants={{
+                    rest: { opacity: 0.0, x: 20 },
+                    hover: { opacity: 1, x: 0 },
+                  }}
+                  transition={{ duration: 0.3 }}
+                  // Toujours visible au clavier / sur tactile (pas de survol disponible)
+                  className={`inline-flex items-center gap-1.5 rounded-full bg-accent px-4 py-2 text-sm font-medium text-white focus-visible:!opacity-100 [@media(hover:none)]:!opacity-100 ${
+                    project.link.href ? '' : 'cursor-not-allowed saturate-50'
+                  }`}
+                >
+                  {project.link.label}
+                  <ArrowUpRight size={16} aria-hidden="true" />
+                  <span className="sr-only"> — {project.title} (nouvel onglet)</span>
+                </motion.a>
+              )}
+            </div>
           </div>
         </motion.article>
       </TiltCard>
