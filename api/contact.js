@@ -51,4 +51,4 @@ export default async function handler(req, res) {
     res.status(500).json({ error: 'Internal error' })
   }
 }
-// trigger redeploy to pick up RESEND_API_KEY
+// trigger redeploy to pick up new RESEND_API_KEY
