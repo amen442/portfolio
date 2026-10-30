@@ -96,7 +96,7 @@ export const profile: Profile = {
   cvUrl: '/CV_Amen_Allah_Ibrahmi.pdf',
   cvFileName: 'CV_Amen_Allah_Ibrahmi.pdf',
   socials: [
-    { label: 'GitHub', href: '', icon: 'github' },
+    { label: 'GitHub', href: 'https://github.com/amen442', icon: 'github' },
     { label: 'LinkedIn', href: 'https://www.linkedin.com/in/ibrahmi-amen-allah-0125a32a6/', icon: 'linkedin' },
   ],
   about:
