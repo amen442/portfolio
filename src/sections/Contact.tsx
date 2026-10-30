@@ -12,6 +12,7 @@ import { profile } from '../data/profile'
 const schema = z.object({
   name: z.string().trim().min(2, 'Ton nom doit contenir au moins 2 caractères'),
   email: z.string().trim().email('Adresse email invalide'),
+  subject: z.string().trim().min(2, 'Le sujet doit contenir au moins 2 caractères').max(200),
   message: z.string().trim().min(10, 'Ton message doit contenir au moins 10 caractères').max(2000),
 })
 type FormValues = z.infer<typeof schema>
@@ -92,18 +93,12 @@ export function Contact() {
   const onSubmit = async (values: FormValues) => {
     setStatus('loading')
     try {
-      const endpoint = import.meta.env.VITE_FORM_ENDPOINT
-      if (endpoint) {
-        const res = await fetch(endpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify(values),
-        })
-        if (!res.ok) throw new Error(`HTTP ${res.status}`)
-      } else {
-        // Aucun backend configuré : simulation (voir README pour brancher un vrai endpoint).
-        await new Promise((r) => setTimeout(r, 1200))
-      }
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(values),
+      })
+      if (!res.ok) throw new Error(`HTTP ${res.status}`)
       setStatus('success')
       reset()
       window.setTimeout(() => setStatus('idle'), 4000)
@@ -149,6 +144,12 @@ export function Contact() {
                 label="Email"
                 error={errors.email?.message}
                 registration={register('email')}
+              />
+              <Field
+                id="subject"
+                label="Sujet"
+                error={errors.subject?.message}
+                registration={register('subject')}
               />
               <Field
                 id="message"
