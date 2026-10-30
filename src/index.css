@@ -1,0 +1,137 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg: 250 250 250;
+    --surface: 255 255 255;
+    --fg: 17 17 17;
+    --muted: 107 114 128;
+    --line: 229 231 235;
+    --accent: 37 99 235; /* #2563EB */
+    --accent-fg: 37 99 235;
+  }
+
+  .dark {
+    --bg: 10 10 10;
+    --surface: 18 18 20;
+    --fg: 245 245 245;
+    --muted: 156 163 175;
+    --line: 39 39 42;
+    --accent: 37 99 235;
+    /* Variante plus claire pour le texte en mode sombre (contraste AA) */
+    --accent-fg: 96 165 250;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    color-scheme: light;
+  }
+  html.dark {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-bg font-sans text-base text-fg antialiased md:text-lg;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display tracking-tight;
+  }
+
+  ::selection {
+    background: rgb(var(--accent) / 0.25);
+  }
+
+  :focus-visible {
+    @apply outline outline-2 outline-offset-2 outline-accent-fg;
+  }
+
+  /* Transition douce lors du changement de thème (classe posée temporairement) */
+  html.theme-transition,
+  html.theme-transition *,
+  html.theme-transition *::before,
+  html.theme-transition *::after {
+    transition:
+      background-color 0.4s ease,
+      color 0.4s ease,
+      border-color 0.4s ease,
+      fill 0.4s ease !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* Lenis (scroll fluide) */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+@layer components {
+  .text-outline {
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgb(var(--fg) / 0.28);
+  }
+  /* Halo qui suit le curseur à l'intérieur d'une carte (--mx/--my posés par CursorGlow) */
+  .spotlight {
+    position: relative;
+  }
+  .spotlight::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+    background: radial-gradient(
+      420px circle at var(--mx, 50%) var(--my, 50%),
+      rgb(var(--accent) / 0.16),
+      transparent 60%
+    );
+  }
+  .spotlight:hover::before {
+    opacity: 1;
+  }
+  .container-x {
+    @apply mx-auto w-full max-w-container px-6 md:px-12 lg:px-24;
+  }
+  .section-y {
+    @apply py-24 md:py-32;
+  }
+  .link-underline {
+    @apply relative;
+  }
+  .link-underline::after {
+    content: '';
+    @apply absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-accent-fg transition-transform duration-300;
+  }
+  .link-underline:hover::after,
+  .link-underline:focus-visible::after {
+    @apply scale-x-100;
+  }
+}

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Amen Allah Ibrahmi — Full-Stack Developer</title>
+    <meta
+      name="description"
+      content="Portfolio d'Amen Allah Ibrahmi, étudiant Business Computing à l'ESEN, développeur full-stack, passionné d'IA et d'entrepreneuriat. Ariana, Tunisie."
+    />
+    <meta name="author" content="Amen Allah Ibrahmi" />
+    <meta name="theme-color" content="#0A0A0A" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Amen Allah Ibrahmi — Full-Stack Developer" />
+    <meta
+      property="og:description"
+      content="Business Computing Student @ ESEN | Full-Stack Developer | Aspiring Entrepreneur | AI & Digital Innovation"
+    />
+    <meta property="og:image" content="/og-image.svg" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script>
+      // Applique le thème avant le premier rendu pour éviter tout flash.
+      try {
+        var stored = localStorage.getItem('theme');
+        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.classList.toggle('dark', dark);
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
