@@ -16,32 +16,28 @@ export default async function handler(req, res) {
       return
     }
 
-    const apiKey = process.env.RESEND_API_KEY
-    if (!apiKey) {
-      console.error('RESEND_API_KEY is not configured')
-      res.status(500).json({ error: 'Email service not configured' })
-      return
-    }
-
-    const resendRes = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        from: 'Portfolio Contact <onboarding@resend.dev>',
-        to: ['amenallah.ibrahmi@esen.tn'],
-        reply_to: email,
-        subject: `[Portfolio] ${subject}`,
-        text: `Nouveau message depuis le portfolio\n\nDe : ${name} <${email}>\nSujet : ${subject}\n\n${message}`,
-      }),
+    // Submissions are appended to a Google Sheet via the linked Google Form's
+    // public formResponse endpoint (no auth required).
+    const FORM_ID = '1FAIpQLSegRD3Sh9co_ObGLH9XLw-WWGZH93vQZt5SqePnK8u-qdb7NA'
+    const body = new URLSearchParams({
+      'entry.15818052': name,
+      'entry.1460513364': email,
+      'entry.217177775': subject,
+      'entry.3754351': message,
     })
 
-    if (!resendRes.ok) {
-      const errText = await resendRes.text()
-      console.error('Resend error:', errText)
-      res.status(502).json({ error: 'Failed to send email' })
+    const formRes = await fetch(
+      `https://docs.google.com/forms/d/e/${FORM_ID}/formResponse`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: body.toString(),
+      }
+    )
+
+    if (!formRes.ok) {
+      console.error('Google Form submission failed:', formRes.status)
+      res.status(502).json({ error: 'Failed to record submission' })
       return
     }
 
@@ -51,4 +47,3 @@ export default async function handler(req, res) {
     res.status(500).json({ error: 'Internal error' })
   }
 }
-// trigger redeploy to pick up new RESEND_API_KEY
